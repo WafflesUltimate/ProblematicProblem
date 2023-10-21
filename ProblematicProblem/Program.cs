@@ -22,12 +22,15 @@ namespace ProblematicProblem
         {
            input = input.ToLower();
            input = input.Trim();
-   
+
+           char c = char.ToUpper(input[0]);
+           input = input.Remove(0, 1);
+           input = c + input;
+
            return input;
         }
 
         //Universal variable delcarations.
-        static bool cont = true;
         static List<string> activities = new List<string>() { "Movies", "Paintball", "Bowling", "Lazer Tag", "LAN Party", "Hiking", "Axe Throwing", "Wine Tasting" };
         static string userName;
         static int userAge;
@@ -112,14 +115,14 @@ namespace ProblematicProblem
             if (boolValidater)
             {
                 //fluff
-                Console.Write("Connecting to the database.");
+                Console.Write("Connecting to the database");
                 for (int i = 0; i < 10; i++)
                 {
                     Console.Write(". ");
                     Thread.Sleep(500);
                 }
                 Console.WriteLine();
-                Console.Write("Choosing your random activity.");
+                Console.Write("Choosing your random activity");
                 for (int i = 0; i < 9; i++)
                 {
                     Console.Write(". ");
@@ -136,7 +139,7 @@ namespace ProblematicProblem
                 randomNumber = rng.Next(activities.Count);
                 randomActivity = activities[randomNumber];
 
-                while (userAge > 21 && randomActivity == "Wine Tasting")
+                while (userAge < 21 && randomActivity == "Wine Tasting")
                 {
                      randomNumber = rng.Next(activities.Count);
                      randomActivity = activities[randomNumber];
@@ -150,6 +153,12 @@ namespace ProblematicProblem
                 {
                     randomNumber = rng.Next(activities.Count);
                     randomActivity = activities[randomNumber];
+
+                    while (userAge < 21 && randomActivity == "Wine Tasting")
+                    {
+                        randomNumber = rng.Next(activities.Count);
+                        randomActivity = activities[randomNumber];
+                    }
 
                     Console.Write($"Okay {userName}, your new random activity is: {randomActivity}! Is this ok or do you want to grab another activity? Keep/Redo: ");
                     Console.WriteLine();
