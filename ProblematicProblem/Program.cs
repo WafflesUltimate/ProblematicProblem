@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -14,7 +15,9 @@ namespace ProblematicProblem
         {
             input = input.ToLower();
 
-            if (input.Contains("yes") || input.Contains("sure") || input.Contains("keep") || input.Contains("yep") || input.Contains("yeah")) { return true; }
+            if (input.Contains("yes") || input.Contains("sure") || input.Contains("keep") || input.Contains("yep") 
+               || input.Contains("yeah")) { return true; }
+
             else { return false; } 
         }
 
@@ -22,6 +25,17 @@ namespace ProblematicProblem
         {
            input = input.ToLower();
            input = input.Trim();
+           List<string> nonLetters = new List<string>() {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "`", "~", "!", "@",
+           "#", "$", "%", "^", "&", "*", "(", ")", "[", "]", "-", "_", "=", "+", "{", "}", "|", ";", ":", "'", ",", "<", ".", ">",
+           "/", "?"};
+           
+            foreach(string nonLetter in nonLetters) 
+            {
+                if (input.Contains(nonLetter))
+                { 
+                   input = input.Replace(nonLetter, "");
+                }
+            }
 
            char c = char.ToUpper(input[0]);
            input = input.Remove(0, 1);
